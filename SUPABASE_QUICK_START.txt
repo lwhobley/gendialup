@@ -1,0 +1,220 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    SUPABASE SETUP - QUICK START (15 MIN)                     ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📍 PREREQUISITES
+  ✓ GitHub account (recommended for faster signup)
+  ✓ Terminal/Command Prompt
+  ✓ Node.js 18+ installed
+  ✓ npm 9+ installed
+  ✓ Gen Dial Up repository cloned
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏱️  TIMELINE
+  Step 1-2: 2 minutes (Sign up, create project)
+  Step 3-4: 3 minutes (Get credentials)
+  Step 5-6: 5 minutes (Setup database)
+  Step 7-8: 3 minutes (Configure auth)
+  Step 9-10: 2 minutes (Test & verify)
+  TOTAL: ~15 minutes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 1: Sign Up to Supabase (2 min)
+
+  1. Open https://supabase.com
+  2. Click "Start your project"
+  3. Sign in with GitHub (recommended)
+  4. Wait for account creation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 2: Create Project (1 min)
+
+  1. Dashboard → "New project"
+  2. Project name: gen-dial-up
+  3. Database password: [Create strong password - SAVE IT!]
+  4. Region: us-east-1 (or closest to you)
+  5. Plan: Free tier ✓
+  6. Click "Create new project"
+
+  ⏳ Wait 2-3 minutes for initialization...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 3: Get Credentials (2 min)
+
+  Project URL & Keys:
+  1. Go to Settings (left sidebar)
+  2. Click "API"
+  3. Copy these 3 values:
+     
+     ┌─────────────────────────────────────┐
+     │ NEXT_PUBLIC_SUPABASE_URL            │ (Project URL)
+     │ NEXT_PUBLIC_SUPABASE_ANON_KEY       │ (anon public key)
+     │ SUPABASE_SERVICE_ROLE_KEY           │ (service_role key)
+     └─────────────────────────────────────┘
+
+  💾 Save to: .env.local file
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 4: Setup Environment Variables (2 min)
+
+  In your terminal:
+  
+  $ cd /path/to/gendialup
+  $ cp .env.example .env.local
+  
+  Edit .env.local and fill in:
+  
+  NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+  NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY_HERE
+  SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY_HERE
+  NEXT_PUBLIC_APP_URL=http://localhost:3000
+  NEXT_PUBLIC_API_URL=http://localhost:3000/api
+
+  💡 Keep other OAuth fields empty for now (optional later)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 5: Install Supabase CLI (1 min)
+
+  $ npm install -g supabase
+
+  Verify installation:
+  $ supabase --version
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 6: Login & Link Project (2 min)
+
+  $ supabase login
+  
+  Follow browser prompt to authenticate
+  Paste the token when asked
+  
+  Then link to your project:
+  $ supabase link --project-ref YOUR_PROJECT_REF
+  
+  (Find YOUR_PROJECT_REF in Supabase URL:
+   https://YOUR_PROJECT_REF.supabase.co)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 7: Push Database Migrations (2 min)
+
+  $ supabase db push
+  
+  This creates all tables:
+  ✓ profiles
+  ✓ matches
+  ✓ chats
+  ✓ messages
+  ✓ meetups
+  ✓ venues
+  ✓ blocks
+  ✓ reports
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 8: Verify Tables in Dashboard (1 min)
+
+  Go to Supabase Dashboard → Table Editor
+  
+  Verify all these exist:
+  ✓ profiles
+  ✓ matches
+  ✓ chats
+  ✓ messages
+  ✓ meetups
+  ✓ venues
+  ✓ blocks
+  ✓ reports
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 9: Test Connection (2 min)
+
+  $ npm install
+  $ npm run dev
+  
+  Open http://localhost:3000 in browser
+  
+  Should see:
+  ✓ Home page loads
+  ✓ No console errors
+  ✓ "Gen Dial Up" title visible
+
+  In browser console, run:
+  console.log(process.env.NEXT_PUBLIC_SUPABASE_URL)
+  
+  Should show your Supabase URL (not undefined)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ STEP 10: (OPTIONAL) Configure Authentication
+
+  Want Google/GitHub OAuth? (Optional, can add later)
+  
+  See: SUPABASE_SETUP_GUIDE.md → Step 4 "Setup Authentication"
+  
+  For quick test, you can use Email/Password auth (enabled by default)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 YOU'RE DONE! Database is ready!
+
+  ✅ Supabase project created
+  ✅ Database initialized
+  ✅ Environment variables configured
+  ✅ Local development server running
+  ✅ Tables created and verified
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 NEXT: Start Building Components!
+
+  Location: app/components/
+  
+  Examples:
+  - LoginForm.tsx
+  - MatchCard.tsx
+  - ChatInterface.tsx
+  - ProfileEditor.tsx
+
+  See docs/ folder for full architecture guide
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  TROUBLESHOOTING
+
+  Tables don't appear?
+  → Make sure migrations pushed: supabase db push
+  → Check dashboard table editor refreshed
+
+  Connection error?
+  → Verify .env.local has correct values
+  → Check NEXT_PUBLIC_SUPABASE_URL doesn't have typos
+  → Supabase project status is "active"
+
+  CLI won't connect?
+  → Logout & login again: supabase logout && supabase login
+  → Link again: supabase link --project-ref YOUR_REF
+
+  More help: See SUPABASE_SETUP_GUIDE.md → Troubleshooting
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 FULL GUIDES IN REPOSITORY
+
+  SUPABASE_SETUP_GUIDE.md ← Detailed step-by-step with screenshots
+  QUICK_START.md ← 5-minute project setup
+  README.md ← Project overview
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Questions? Check the full guide or ask in GitHub issues.
+
+Status: ✅ READY FOR DEVELOPMENT 🚀
