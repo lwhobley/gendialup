@@ -1,0 +1,8 @@
+{
+  "name": "Gen Dial Up",
+  "short_name": "Gen Dial Up",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF8F3",
+  "theme_color": "#9CAF88"
+}
