@@ -1,14 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 export default function NostalgiaImageCollage() {
-  const [imageLoaded, setImageLoaded] = useState(false)
-
   useEffect(() => {
     // Preload the image
     const img = new Image()
-    img.onload = () => setImageLoaded(true)
     img.src = '/90s-collage.jpg'
   }, [])
 
