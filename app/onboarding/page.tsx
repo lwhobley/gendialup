@@ -66,116 +66,144 @@ export default function OnboardingPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-cream to-warm-gray/15 flex items-center justify-center">
-        <p className="text-light-text">Loading...</p>
+      <div className="min-h-screen bg-gradient-90s-warm flex items-center justify-center">
+        <p className="text-2xl font-black text-neon-orange animate-pulse">Loading...</p>
       </div>
     )
   }
 
   const suggestedInterests = [
-    'Hiking',
-    'Coffee',
-    'Reading',
-    'Board Games',
-    'Cooking',
-    'Fitness',
-    'Music',
-    'Art',
-    'Travel',
-    'Yoga',
-    'Sports',
-    'Movies',
+    '🥾 Hiking',
+    '☕ Coffee',
+    '📚 Reading',
+    '🎲 Board Games',
+    '🍳 Cooking',
+    '💪 Fitness',
+    '🎵 Music',
+    '🎨 Art',
+    '✈️ Travel',
+    '🧘 Yoga',
+    '⚽ Sports',
+    '🎬 Movies',
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cream to-warm-gray/15 flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-dark-text mb-2 text-center">
-          Complete Your Profile
-        </h1>
-        <p className="text-light-text text-center mb-8">
-          Tell us about yourself
-        </p>
+    <div className="min-h-screen bg-gradient-90s-warm relative overflow-hidden flex items-center justify-center px-4 py-8">
+      {/* Background shapes */}
+      <div className="absolute top-10 right-20 w-56 h-56 bg-neon-orange opacity-20 shape-blob blur-3xl"></div>
+      <div className="absolute bottom-10 left-10 w-48 h-48 bg-neon-yellow opacity-15 shape-blob blur-3xl"></div>
+      <div className="absolute inset-0 grid-background pointer-events-none"></div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* First Name */}
-          <div>
-            <label className="block text-sm font-medium text-dark-text mb-2">
-              First Name
-            </label>
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="Your name"
-              required
-              className="w-full px-4 py-3 border-2 border-warm-gray rounded-lg focus:outline-none focus:border-sage transition"
-            />
+      {/* Card */}
+      <div className="relative z-10 w-full max-w-2xl">
+        <div className="bg-gradient-to-br from-neon-orange to-neon-yellow p-1 rounded-3xl shadow-retro">
+          <div className="bg-white rounded-3xl p-8 glass-card">
+            <h1 className="text-4xl font-black text-center mb-2 rainbow-text">
+              YOUR PROFILE
+            </h1>
+            <p className="text-center text-neon-orange font-bold mb-8">
+              Tell us about yourself
+            </p>
+
+            <div className="divider-90s mb-6"></div>
+
+            <form onSubmit={handleSubmit} className="space-y-8">
+              {/* First Name */}
+              <div>
+                <label className="block text-sm font-black text-neon-pink mb-3 uppercase">
+                  👤 First Name
+                </label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="Your name"
+                  required
+                  className="w-full px-4 py-3 border-4 border-neon-cyan rounded-xl focus:outline-none focus:border-neon-pink transition text-dark-text font-bold"
+                />
+              </div>
+
+              {/* Age */}
+              <div>
+                <label className="block text-sm font-black text-neon-pink mb-3 uppercase">
+                  🎂 Age
+                </label>
+                <input
+                  type="number"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  placeholder="28-43"
+                  min="28"
+                  max="43"
+                  required
+                  className="w-full px-4 py-3 border-4 border-neon-cyan rounded-xl focus:outline-none focus:border-neon-pink transition text-dark-text font-bold"
+                />
+              </div>
+
+              {/* Interests */}
+              <div>
+                <label className="block text-sm font-black text-neon-pink mb-4 uppercase">
+                  ✨ Your Interests
+                </label>
+
+                {/* Selected interests */}
+                {interests.length > 0 && (
+                  <div className="mb-4 flex flex-wrap gap-3">
+                    {interests.map((interest) => (
+                      <button
+                        key={interest}
+                        onClick={() => handleRemoveInterest(interest)}
+                        className="bg-gradient-to-r from-neon-cyan to-neon-lime text-dark-text px-4 py-2 rounded-full text-sm font-black hover:shadow-neon-cyan transition transform hover:scale-105"
+                      >
+                        {interest} ✕
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Suggested interests */}
+                <div className="flex flex-wrap gap-3">
+                  {suggestedInterests.map((interest) => (
+                    <button
+                      key={interest}
+                      onClick={() => handleAddInterest(interest)}
+                      disabled={interests.includes(interest)}
+                      className={`px-4 py-2 rounded-full text-sm font-black transition transform hover:scale-105 ${
+                        interests.includes(interest)
+                          ? 'bg-neon-pink text-white shadow-neon-pink'
+                          : 'border-4 border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-white'
+                      }`}
+                    >
+                      {interest}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="p-4 bg-gradient-to-r from-neon-red to-neon-orange border-4 border-neon-red rounded-xl text-white font-bold text-center shadow-lg">
+                  {error}
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={saving || !firstName || !age}
+                className="btn-90s w-full bg-gradient-to-r from-neon-cyan to-neon-lime text-dark-text font-black py-4 px-6 rounded-full transition shadow-neon-cyan hover:shadow-lg border-0 text-lg uppercase disabled:opacity-50"
+              >
+                {saving ? '⏳ Saving...' : '🚀 Continue to Matches 🚀'}
+              </button>
+            </form>
+
+            <div className="divider-90s my-6"></div>
+
+            <p className="text-center font-bold text-neon-purple">
+              ✌️ Complete your profile to find your people ✌️
+            </p>
           </div>
-
-          {/* Age */}
-          <div>
-            <label className="block text-sm font-medium text-dark-text mb-2">
-              Age
-            </label>
-            <input
-              type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              placeholder="28-43"
-              min="28"
-              max="43"
-              required
-              className="w-full px-4 py-3 border-2 border-warm-gray rounded-lg focus:outline-none focus:border-sage transition"
-            />
-          </div>
-
-          {/* Interests */}
-          <div>
-            <label className="block text-sm font-medium text-dark-text mb-2">
-              Interests
-            </label>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {interests.map((interest) => (
-                <button
-                  key={interest}
-                  onClick={() => handleRemoveInterest(interest)}
-                  className="bg-sage text-white px-3 py-1 rounded-full text-sm hover:bg-sage/90 transition"
-                >
-                  {interest} ✕
-                </button>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {suggestedInterests.map((interest) => (
-                <button
-                  key={interest}
-                  onClick={() => handleAddInterest(interest)}
-                  disabled={interests.includes(interest)}
-                  className="border-2 border-warm-gray px-3 py-1 rounded-full text-sm hover:border-sage disabled:bg-warm-gray disabled:text-light-text transition"
-                >
-                  {interest}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="p-3 bg-red-100 border-l-4 border-red-500 text-red-700 text-sm">
-              {error}
-            </div>
-          )}
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={saving || !firstName || !age}
-            className="w-full bg-sage hover:bg-sage/90 disabled:bg-sage/50 text-white font-semibold py-3 px-4 rounded-lg transition"
-          >
-            {saving ? 'Saving...' : 'Continue to Matches'}
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   )

@@ -29,7 +29,6 @@ export default function LoginForm() {
         return
       }
 
-      // Login successful - redirect to matches
       router.push('/matches')
     } catch (err) {
       setError('An error occurred. Please try again.')
@@ -38,70 +37,87 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cream to-warm-gray/15 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-dark-text mb-2 text-center">
-          Gen Dial Up
-        </h1>
-        <p className="text-light-text text-center mb-8">
-          Find your people. Locally.
-        </p>
+    <div className="min-h-screen bg-gradient-90s-neon relative overflow-hidden flex items-center justify-center px-4 py-8">
+      {/* Background shapes */}
+      <div className="absolute top-10 right-20 w-48 h-48 bg-neon-blue opacity-20 shape-blob blur-3xl"></div>
+      <div className="absolute bottom-10 left-20 w-56 h-56 bg-neon-pink opacity-15 shape-blob blur-3xl"></div>
+      <div className="absolute inset-0 grid-background pointer-events-none"></div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          {/* Email Input */}
-          <div>
-            <label className="block text-sm font-medium text-dark-text mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required
-              className="w-full px-4 py-3 border-2 border-warm-gray rounded-lg focus:outline-none focus:border-sage transition"
-            />
+      {/* Card */}
+      <div className="relative z-10 w-full max-w-md">
+        <div className="bg-gradient-to-br from-neon-pink to-neon-orange p-1 rounded-3xl shadow-retro">
+          <div className="bg-white rounded-3xl p-8 glass-card">
+            <h1 className="text-4xl font-black text-center mb-2 rainbow-text">
+              LOGIN
+            </h1>
+            <p className="text-center text-neon-cyan font-bold mb-8">
+              Welcome back to Gen Dial Up
+            </p>
+
+            <div className="divider-90s mb-6"></div>
+
+            <form onSubmit={handleLogin} className="space-y-6">
+              {/* Email Input */}
+              <div>
+                <label className="block text-sm font-black text-neon-pink mb-3 uppercase">
+                  📧 Email
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  required
+                  className="w-full px-4 py-3 border-4 border-neon-cyan rounded-xl focus:outline-none focus:border-neon-pink transition text-dark-text font-bold"
+                />
+              </div>
+
+              {/* Password Input */}
+              <div>
+                <label className="block text-sm font-black text-neon-pink mb-3 uppercase">
+                  🔐 Password
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                  className="w-full px-4 py-3 border-4 border-neon-cyan rounded-xl focus:outline-none focus:border-neon-pink transition text-dark-text font-bold"
+                />
+              </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="p-4 bg-gradient-to-r from-neon-red to-neon-orange border-4 border-neon-red rounded-xl text-white font-bold text-center shadow-lg">
+                  {error}
+                </div>
+              )}
+
+              {/* Login Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-90s w-full bg-gradient-to-r from-neon-cyan to-neon-lime text-dark-text font-black py-4 px-6 rounded-full transition shadow-neon-cyan hover:shadow-lg border-0 text-lg uppercase"
+              >
+                {loading ? '⏳ Logging in...' : '✨ Login ✨'}
+              </button>
+            </form>
+
+            <div className="divider-90s my-6"></div>
+
+            {/* Sign Up Link */}
+            <p className="text-center font-bold">
+              <span className="text-dark-text">Don&apos;t have an account? </span>
+              <a
+                href="/signup"
+                className="text-neon-pink hover:text-neon-orange font-black uppercase transition"
+              >
+                Sign Up
+              </a>
+            </p>
           </div>
-
-          {/* Password Input */}
-          <div>
-            <label className="block text-sm font-medium text-dark-text mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              className="w-full px-4 py-3 border-2 border-warm-gray rounded-lg focus:outline-none focus:border-sage transition"
-            />
-          </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="p-3 bg-red-100 border-l-4 border-red-500 text-red-700 text-sm">
-              {error}
-            </div>
-          )}
-
-          {/* Login Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-sage hover:bg-sage/90 disabled:bg-sage/50 text-white font-semibold py-3 px-4 rounded-lg transition"
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
-
-        {/* Sign Up Link */}
-        <p className="text-center text-light-text mt-6">
-          Don&apos;t have an account?{' '}
-          <a href="/signup" className="text-sage font-semibold hover:underline">
-            Sign up
-          </a>
-        </p>
+        </div>
       </div>
     </div>
   )

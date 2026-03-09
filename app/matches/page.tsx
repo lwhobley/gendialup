@@ -16,27 +16,49 @@ export default function MatchesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-cream to-warm-gray/15 flex items-center justify-center">
-        <p className="text-light-text">Loading...</p>
+      <div className="min-h-screen bg-gradient-90s-neon flex items-center justify-center">
+        <p className="text-2xl font-black text-white animate-pulse">Loading...</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cream to-warm-gray/15 p-6">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold text-dark-text mb-8">Your Matches</h1>
-        
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-          <p className="text-light-text text-lg mb-4">
-            Welcome! Complete your profile to see matches.
-          </p>
-          <button
-            onClick={() => router.push('/onboarding')}
-            className="bg-sage hover:bg-sage/90 text-white font-semibold py-3 px-8 rounded-lg transition"
-          >
-            Complete Profile
-          </button>
+    <div className="min-h-screen bg-gradient-retro relative overflow-hidden p-6">
+      {/* Background shapes */}
+      <div className="absolute top-10 right-20 w-48 h-48 bg-neon-pink opacity-20 shape-blob blur-3xl"></div>
+      <div className="absolute bottom-10 left-10 w-56 h-56 bg-neon-cyan opacity-15 shape-blob blur-3xl"></div>
+      <div className="absolute inset-0 grid-background pointer-events-none"></div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-3xl mx-auto">
+        <h1 className="text-5xl font-black text-center mb-2 rainbow-text animate-float">
+          Your Matches
+        </h1>
+        <div className="divider-90s max-w-xs mx-auto mb-12"></div>
+
+        <div className="bg-gradient-to-br from-neon-purple to-neon-blue p-1 rounded-3xl shadow-retro">
+          <div className="bg-white rounded-3xl shadow-lg p-12 glass-card text-center">
+            <p className="text-6xl mb-4">💫</p>
+            <p className="text-2xl font-black text-dark-text mb-4">
+              Welcome to Your Matches!
+            </p>
+            <p className="text-lg text-neon-cyan font-bold mb-8">
+              Complete your profile to see potential matches in your area.
+            </p>
+
+            <button
+              onClick={() => router.push('/onboarding')}
+              className="btn-90s px-10 py-4 bg-gradient-to-r from-neon-orange to-neon-yellow text-dark-text rounded-full shadow-lg hover:shadow-xl transition border-0 font-black text-lg uppercase"
+            >
+              Complete Profile
+            </button>
+
+            <div className="divider-90s max-w-xs mx-auto my-8"></div>
+
+            <p className="text-neon-pink font-bold">
+              ✨ Your next great friendship is waiting ✨
+            </p>
+          </div>
         </div>
       </div>
     </div>

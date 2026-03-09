@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client'
 
 import { useState } from 'react'
@@ -17,14 +18,12 @@ export default function SignupForm() {
     setError('')
     setLoading(true)
 
-    // Validate passwords match
     if (password !== confirmPassword) {
       setError('Passwords do not match')
       setLoading(false)
       return
     }
 
-    // Validate password strength
     if (password.length < 8) {
       setError('Password must be at least 8 characters')
       setLoading(false)
@@ -46,7 +45,6 @@ export default function SignupForm() {
         return
       }
 
-      // Signup successful - redirect to profile setup
       router.push('/onboarding')
     } catch (err) {
       setError('An error occurred. Please try again.')
@@ -55,88 +53,105 @@ export default function SignupForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cream to-warm-gray/15 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-dark-text mb-2 text-center">
-          Gen Dial Up
-        </h1>
-        <p className="text-light-text text-center mb-8">
-          Create your account
-        </p>
+    <div className="min-h-screen bg-gradient-90s-cool relative overflow-hidden flex items-center justify-center px-4 py-8">
+      {/* Background shapes */}
+      <div className="absolute top-20 left-20 w-56 h-56 bg-neon-cyan opacity-20 shape-blob blur-3xl"></div>
+      <div className="absolute bottom-20 right-10 w-48 h-48 bg-neon-purple opacity-15 shape-blob blur-3xl"></div>
+      <div className="absolute inset-0 grid-background pointer-events-none"></div>
 
-        <form onSubmit={handleSignup} className="space-y-4">
-          {/* Email Input */}
-          <div>
-            <label className="block text-sm font-medium text-dark-text mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required
-              className="w-full px-4 py-3 border-2 border-warm-gray rounded-lg focus:outline-none focus:border-sage transition"
-            />
-          </div>
+      {/* Card */}
+      <div className="relative z-10 w-full max-w-md">
+        <div className="bg-gradient-to-br from-neon-purple to-neon-blue p-1 rounded-3xl shadow-retro">
+          <div className="bg-white rounded-3xl p-8 glass-card">
+            <h1 className="text-4xl font-black text-center mb-2 rainbow-text">
+              SIGN UP
+            </h1>
+            <p className="text-center text-neon-purple font-bold mb-8">
+              Join the Gen Dial Up community
+            </p>
 
-          {/* Password Input */}
-          <div>
-            <label className="block text-sm font-medium text-dark-text mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              className="w-full px-4 py-3 border-2 border-warm-gray rounded-lg focus:outline-none focus:border-sage transition"
-            />
-            <p className="text-xs text-light-text mt-1">
-              Minimum 8 characters
+            <div className="divider-90s mb-6"></div>
+
+            <form onSubmit={handleSignup} className="space-y-6">
+              {/* Email Input */}
+              <div>
+                <label className="block text-sm font-black text-neon-purple mb-3 uppercase">
+                  📧 Email
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  required
+                  className="w-full px-4 py-3 border-4 border-neon-cyan rounded-xl focus:outline-none focus:border-neon-purple transition text-dark-text font-bold"
+                />
+              </div>
+
+              {/* Password Input */}
+              <div>
+                <label className="block text-sm font-black text-neon-purple mb-3 uppercase">
+                  🔐 Password
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                  className="w-full px-4 py-3 border-4 border-neon-cyan rounded-xl focus:outline-none focus:border-neon-purple transition text-dark-text font-bold"
+                />
+                <p className="text-xs font-bold text-neon-cyan mt-2">
+                  Minimum 8 characters
+                </p>
+              </div>
+
+              {/* Confirm Password Input */}
+              <div>
+                <label className="block text-sm font-black text-neon-purple mb-3 uppercase">
+                  ✓ Confirm Password
+                </label>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                  className="w-full px-4 py-3 border-4 border-neon-cyan rounded-xl focus:outline-none focus:border-neon-purple transition text-dark-text font-bold"
+                />
+              </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="p-4 bg-gradient-to-r from-neon-red to-neon-orange border-4 border-neon-red rounded-xl text-white font-bold text-center shadow-lg">
+                  {error}
+                </div>
+              )}
+
+              {/* Signup Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-90s w-full bg-gradient-to-r from-neon-lime to-neon-cyan text-dark-text font-black py-4 px-6 rounded-full transition shadow-neon-cyan hover:shadow-lg border-0 text-lg uppercase"
+              >
+                {loading ? '⏳ Creating account...' : '🚀 Sign Up 🚀'}
+              </button>
+            </form>
+
+            <div className="divider-90s my-6"></div>
+
+            {/* Login Link */}
+            <p className="text-center font-bold">
+              <span className="text-dark-text">Already have an account? </span>
+              <a
+                href="/login"
+                className="text-neon-purple hover:text-neon-blue font-black uppercase transition"
+              >
+                Login
+              </a>
             </p>
           </div>
-
-          {/* Confirm Password Input */}
-          <div>
-            <label className="block text-sm font-medium text-dark-text mb-2">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              className="w-full px-4 py-3 border-2 border-warm-gray rounded-lg focus:outline-none focus:border-sage transition"
-            />
-          </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="p-3 bg-red-100 border-l-4 border-red-500 text-red-700 text-sm">
-              {error}
-            </div>
-          )}
-
-          {/* Signup Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-sage hover:bg-sage/90 disabled:bg-sage/50 text-white font-semibold py-3 px-4 rounded-lg transition"
-          >
-            {loading ? 'Creating account...' : 'Sign Up'}
-          </button>
-        </form>
-
-        {/* Login Link */}
-        <p className="text-center text-light-text mt-6">
-          Already have an account?{' '}
-          <a href="/login" className="text-sage font-semibold hover:underline">
-            Log in
-          </a>
-        </p>
+        </div>
       </div>
     </div>
   )
