@@ -1,75 +1,20 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
-
-interface UnsplashImage {
-  id: string
-  urls: {
-    regular: string
-    thumb: string
-  }
-  alt_description: string
-  user: {
-    name: string
-  }
-}
-
 export default function NostalgiaImageCollage() {
-  const [images, setImages] = useState<UnsplashImage[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchNostalgiaImages = async () => {
-      try {
-        // Search queries for 90s nostalgia
-        const queries = [
-          '90s concert music festival',
-          '90s television retro aesthetic',
-          '90s fashion vibe',
-          '1990s entertainment neon',
-          '90s pop culture vibes',
-          'vintage 90s media',
-        ]
-
-        const randomQuery = queries[Math.floor(Math.random() * queries.length)]
-
-        const response = await fetch(
-          `https://api.unsplash.com/search/photos?query=${randomQuery}&per_page=12&orientation=portrait&client_id=4sqiR8LMd6PVsYwjLKmn8ug0W8Aq5OvhFDUMgn7KhGU`
-        )
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch images')
-        }
-
-        const data = await response.json()
-        setImages(data.results.slice(0, 12))
-      } catch (error) {
-        console.error('Error fetching nostalgia images:', error)
-        // Fallback to gradient boxes if API fails
-        setImages([])
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchNostalgiaImages()
-  }, [])
-
-  // Fallback gradient colors for 90s aesthetic
-  const fallbackGradients = [
-    'from-neon-pink to-neon-orange',
-    'from-neon-orange to-neon-yellow',
-    'from-neon-yellow to-neon-purple',
-    'from-neon-purple to-neon-blue',
-    'from-neon-blue to-neon-cyan',
-    'from-neon-cyan to-neon-lime',
-    'from-neon-lime to-neon-pink',
-    'from-neon-pink to-neon-blue',
-    'from-neon-cyan to-neon-orange',
-    'from-neon-yellow to-neon-purple',
-    'from-neon-blue to-neon-pink',
-    'from-neon-orange to-neon-cyan',
+  // 90s aesthetic background images from Unsplash (static URLs)
+  const images = [
+    'https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=400&h=400&fit=crop', // concert
+    'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop', // musician
+    'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop', // 90s aesthetic
+    'https://images.unsplash.com/photo-1516280440614-37939635edad?w=400&h=400&fit=crop', // retro
+    'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=400&fit=crop', // music stage
+    'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop', // entertainment
+    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=400&fit=crop', // concert lights
+    'https://images.unsplash.com/photo-1408679713417-d4dc57eeaaf0?w=400&h=400&fit=crop', // festival
+    'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop', // 90s vibes
+    'https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=400&h=400&fit=crop', // neon
+    'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop', // vintage
+    'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=400&fit=crop', // retro music
   ]
 
   const positions = [
@@ -88,33 +33,20 @@ export default function NostalgiaImageCollage() {
   ]
 
   return (
-    <div className="absolute inset-0 overflow-hidden opacity-40">
+    <div className="absolute inset-0 overflow-hidden opacity-35">
       {/* Image Grid - 12 images in collage layout */}
-      {Array.from({ length: 12 }).map((_, index) => (
+      {images.map((imageUrl, index) => (
         <div
           key={index}
           className={`absolute ${positions[index]} rounded-lg shadow-lg overflow-hidden border-4 border-white`}
+          style={{
+            backgroundImage: `url('${imageUrl}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
         >
-          {images[index] && !loading ? (
-            <div className="relative w-full h-full">
-              <Image
-                src={images[index].urls.regular}
-                alt={images[index].alt_description || '90s nostalgia image'}
-                fill
-                className="object-cover"
-                priority={index < 4}
-              />
-              {/* Overlay gradient for cohesion */}
-              <div className="absolute inset-0 bg-gradient-to-br from-neon-pink/20 to-neon-blue/20"></div>
-            </div>
-          ) : (
-            /* Fallback: Gradient boxes with 90s emoji */
-            <div
-              className={`w-full h-full bg-gradient-to-br ${fallbackGradients[index]} flex items-center justify-center text-5xl shadow-lg`}
-            >
-              {['🎸', '🎤', '📺', '🎬', '🌟', '✨', '🎪', '🎭', '📻', '📼', '🎉', '🎊'][index]}
-            </div>
-          )}
+          {/* Overlay gradient for cohesion */}
+          <div className="absolute inset-0 bg-gradient-to-br from-neon-pink/30 to-neon-blue/30"></div>
         </div>
       ))}
 
