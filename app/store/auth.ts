@@ -1,16 +1,15 @@
 import { create } from 'zustand'
-import { User } from '@/types'
 
 interface AuthState {
-  user: User | null
-  isLoading: boolean
-  setUser: (user: User | null) => void
+  user: any | null
+  loading: boolean
+  setUser: (user: any | null) => void
   setLoading: (loading: boolean) => void
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
-  isLoading: true,
+  loading: true,
   setUser: (user) => set({ user }),
-  setLoading: (isLoading) => set({ isLoading }),
+  setLoading: (loading) => set({ loading }),
 }))
