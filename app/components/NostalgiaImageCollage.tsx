@@ -1,21 +1,23 @@
 'use client'
 
 export default function NostalgiaImageCollage() {
-  // 90s aesthetic background images from Unsplash (static URLs)
-  const images = [
-    'https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=400&h=400&fit=crop', // concert
-    'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop', // musician
-    'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop', // 90s aesthetic
-    'https://images.unsplash.com/photo-1516280440614-37939635edad?w=400&h=400&fit=crop', // retro
-    'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=400&fit=crop', // music stage
-    'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop', // entertainment
-    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=400&fit=crop', // concert lights
-    'https://images.unsplash.com/photo-1408679713417-d4dc57eeaaf0?w=400&h=400&fit=crop', // festival
-    'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop', // 90s vibes
-    'https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=400&h=400&fit=crop', // neon
-    'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop', // vintage
-    'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=400&fit=crop', // retro music
+  // Vibrant gradient backgrounds that evoke 90s aesthetic
+  const gradients = [
+    'linear-gradient(135deg, #FF006E 0%, #FB5607 100%)',      // Pink to Orange
+    'linear-gradient(135deg, #FB5607 0%, #FFBE0B 100%)',      // Orange to Yellow
+    'linear-gradient(135deg, #FFBE0B 0%, #8338EC 100%)',      // Yellow to Purple
+    'linear-gradient(135deg, #8338EC 0%, #3A86FF 100%)',      // Purple to Blue
+    'linear-gradient(135deg, #3A86FF 0%, #00D9FF 100%)',      // Blue to Cyan
+    'linear-gradient(135deg, #00D9FF 0%, #06FFA5 100%)',      // Cyan to Lime
+    'linear-gradient(135deg, #06FFA5 0%, #FF006E 100%)',      // Lime to Pink
+    'linear-gradient(135deg, #FF006E 0%, #3A86FF 100%)',      // Pink to Blue
+    'linear-gradient(135deg, #00D9FF 0%, #FB5607 100%)',      // Cyan to Orange
+    'linear-gradient(135deg, #FFBE0B 0%, #8338EC 100%)',      // Yellow to Purple
+    'linear-gradient(135deg, #3A86FF 0%, #FF006E 100%)',      // Blue to Pink
+    'linear-gradient(135deg, #FB5607 0%, #00D9FF 100%)',      // Orange to Cyan
   ]
+
+  const emojis = ['🎸', '🎤', '📺', '🎬', '🌟', '✨', '🎪', '🎭', '📻', '📼', '🎉', '🎊']
 
   const positions = [
     'top-0 left-0 w-48 h-48 -rotate-12',
@@ -33,20 +35,20 @@ export default function NostalgiaImageCollage() {
   ]
 
   return (
-    <div className="absolute inset-0 overflow-hidden opacity-35">
-      {/* Image Grid - 12 images in collage layout */}
-      {images.map((imageUrl, index) => (
+    <div className="absolute inset-0 overflow-hidden opacity-40">
+      {/* Gradient boxes representing 90s aesthetic */}
+      {gradients.map((gradient, index) => (
         <div
           key={index}
-          className={`absolute ${positions[index]} rounded-lg shadow-lg overflow-hidden border-4 border-white`}
+          className={`absolute ${positions[index]} rounded-2xl shadow-lg overflow-hidden border-4 border-white`}
           style={{
-            backgroundImage: `url('${imageUrl}')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            background: gradient,
           }}
         >
-          {/* Overlay gradient for cohesion */}
-          <div className="absolute inset-0 bg-gradient-to-br from-neon-pink/30 to-neon-blue/30"></div>
+          {/* Emoji overlay for 90s vibe */}
+          <div className="absolute inset-0 flex items-center justify-center text-6xl drop-shadow-lg">
+            {emojis[index]}
+          </div>
         </div>
       ))}
 
@@ -56,7 +58,7 @@ export default function NostalgiaImageCollage() {
       <div className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-gradient-to-br from-neon-cyan to-neon-purple transform -rotate-45 shadow-lg opacity-30"></div>
 
       {/* Grid overlay for 90s aesthetic */}
-      <div className="absolute inset-0 opacity-5 bg-gradient-to-br from-neon-pink via-neon-yellow to-neon-cyan"></div>
+      <div className="absolute inset-0 opacity-5 bg-gradient-to-br from-neon-pink via-neon-yellow to-neon-cyan pointer-events-none"></div>
     </div>
   )
 }
