@@ -27,6 +27,9 @@ const nextConfig = {
     ],
   },
 
+  // Static assets
+  staticPageGenerationTimeout: 1000,
+
   // React config
   reactStrictMode: true,
   swcMinify: true,
