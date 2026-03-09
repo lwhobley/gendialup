@@ -13,70 +13,27 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#9CAF88',
     icons: [
       {
-        src: '/icon-192.png',
+        src: '/favicon.ico',
+        sizes: '16x16 32x32',
+        type: 'image/x-icon',
+      },
+      {
+        src: '/apple-icon-180x180.png',
+        sizes: '180x180',
+        type: 'image/png',
+        purpose: 'any',
+      },
+      {
+        src: '/android-icon-192x192.png',
         sizes: '192x192',
         type: 'image/png',
         purpose: 'any',
       },
       {
-        src: '/icon-512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'any',
-      },
-      {
-        src: '/icon-maskable-192.png',
+        src: '/android-icon-192x192.png',
         sizes: '192x192',
         type: 'image/png',
         purpose: 'maskable',
-      },
-      {
-        src: '/icon-maskable-512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'maskable',
-      },
-    ],
-    screenshots: [
-      {
-        src: '/screenshot-1.png',
-        sizes: '540x720',
-        type: 'image/png',
-        form_factor: 'narrow',
-      },
-      {
-        src: '/screenshot-2.png',
-        sizes: '1280x720',
-        type: 'image/png',
-        form_factor: 'wide',
-      },
-    ],
-    shortcuts: [
-      {
-        name: 'View Matches',
-        short_name: 'Matches',
-        description: 'See your potential matches',
-        url: '/matches?mode=standalone',
-        icons: [
-          {
-            src: '/icon-shortcut-matches.png',
-            sizes: '96x96',
-            type: 'image/png',
-          },
-        ],
-      },
-      {
-        name: 'Messages',
-        short_name: 'Chat',
-        description: 'View your messages',
-        url: '/chat?mode=standalone',
-        icons: [
-          {
-            src: '/icon-shortcut-chat.png',
-            sizes: '96x96',
-            type: 'image/png',
-          },
-        ],
       },
     ],
     categories: ['social', 'lifestyle'],
