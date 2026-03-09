@@ -32,22 +32,10 @@ export default function RootLayout({
       <head>
         {/* PWA Icons */}
         <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#9CAF88" />
+        <link rel="apple-touch-icon" href="/apple-icon-180x180.png" />
         
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
-        
-        {/* Fonts */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="preload"
-          as="style"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         
         {/* Web App Meta Tags */}
         <meta name="mobile-web-app-capable" content="yes" />
