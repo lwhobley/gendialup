@@ -4,6 +4,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase-client'
+import BackgroundCollage from './BackgroundCollage'
 
 export default function LoginForm() {
   const router = useRouter()
@@ -38,9 +39,10 @@ export default function LoginForm() {
 
   return (
     <div className="min-h-screen bg-gradient-90s-neon relative overflow-hidden flex items-center justify-center px-4 py-8">
-      {/* Background shapes */}
-      <div className="absolute top-10 right-20 w-48 h-48 bg-neon-blue opacity-20 shape-blob blur-3xl"></div>
-      <div className="absolute bottom-10 left-20 w-56 h-56 bg-neon-pink opacity-15 shape-blob blur-3xl"></div>
+      {/* Background collage */}
+      <BackgroundCollage />
+
+      {/* Grid overlay */}
       <div className="absolute inset-0 grid-background pointer-events-none"></div>
 
       {/* Card */}
