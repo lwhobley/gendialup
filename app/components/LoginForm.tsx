@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase-client'
-import BackgroundCollage from './BackgroundCollage'
+import NostalgiaImageCollage from './NostalgiaImageCollage'
 
 export default function LoginForm() {
   const router = useRouter()
@@ -39,8 +39,8 @@ export default function LoginForm() {
 
   return (
     <div className="min-h-screen bg-gradient-90s-neon relative overflow-hidden flex items-center justify-center px-4 py-8">
-      {/* Background collage */}
-      <BackgroundCollage />
+      {/* 90s Image Collage Background */}
+      <NostalgiaImageCollage />
 
       {/* Grid overlay */}
       <div className="absolute inset-0 grid-background pointer-events-none"></div>
