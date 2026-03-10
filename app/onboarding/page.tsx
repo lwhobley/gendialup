@@ -262,9 +262,9 @@ export default function OnboardingPage() {
                     type="number"
                     value={profile.age}
                     onChange={(e) => setProfile({ ...profile, age: e.target.value })}
-                    placeholder="28-43"
-                    min="28"
-                    max="43"
+                    placeholder="Age"
+                    min="1"
+                    max="120"
                     className="w-full px-0 py-3 bg-transparent border-b border-gray-300 focus:border-black outline-none transition text-base placeholder-gray-300"
                   />
                 </div>

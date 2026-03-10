@@ -66,7 +66,7 @@ export default function SignupForm() {
           <h1 className="text-4xl font-light tracking-tight text-black mb-2">
             Join Gen Dial Up
           </h1>
-          <p className="text-sm text-gray-500">Create your account</p>
+          <p className="text-sm text-gray-500">For Millennials. For friendship.</p>
         </div>
 
         <form onSubmit={handleSignup} className="space-y-6">

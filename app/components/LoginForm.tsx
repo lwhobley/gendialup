@@ -44,7 +44,7 @@ export default function LoginForm() {
           <h1 className="text-4xl font-light tracking-tight text-black mb-2">
             Welcome back
           </h1>
-          <p className="text-sm text-gray-500">Sign in to continue</p>
+          <p className="text-sm text-gray-500">For Millennials. For friendship.</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
