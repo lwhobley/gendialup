@@ -13,6 +13,7 @@ export default function OnboardingPage() {
   const [interests, setInterests] = useState<string[]>([])
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
 
   useEffect(() => {
     if (!loading && !user) {
@@ -33,6 +34,7 @@ export default function OnboardingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setSuccessMessage('')
     setSaving(true)
 
     try {
@@ -60,7 +62,10 @@ export default function OnboardingPage() {
         return
       }
 
-      const { error: err } = await supabase
+      console.log('Saving profile for user:', user.id)
+      console.log('Profile data:', { firstName, age, interests })
+
+      const { data, error: err } = await supabase
         .from('profiles')
         .upsert({
           id: user.id,
@@ -68,22 +73,28 @@ export default function OnboardingPage() {
           age: parseInt(age),
           interests: interests,
         })
+        .select()
 
       if (err) {
         console.error('Database error:', err)
-        setError(err.message || 'Failed to save profile')
+        setError(`Error saving profile: ${err.message}`)
         setSaving(false)
         return
       }
 
-      // Add delay to ensure database sync
-      await new Promise(resolve => setTimeout(resolve, 500))
+      console.log('Profile saved successfully:', data)
+      setSuccessMessage('Profile saved! Redirecting to matches...')
 
-      // Navigate to matches
-      router.push('/matches')
+      // Add delay to ensure database sync
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
+      console.log('Navigating to /matches')
+      // Use window.location as fallback
+      window.location.href = '/matches'
+      
     } catch (err) {
       console.error('Submit error:', err)
-      setError('An error occurred. Please try again.')
+      setError(`An error occurred: ${err instanceof Error ? err.message : 'Unknown error'}`)
       setSaving(false)
     }
   }
@@ -201,6 +212,7 @@ export default function OnboardingPage() {
                       <button
                         key={interest}
                         onClick={() => handleRemoveInterest(interest)}
+                        type="button"
                         className="bg-gradient-to-r from-neon-cyan to-neon-lime text-dark-text px-4 py-2 rounded-full text-sm font-black hover:shadow-neon-cyan transition transform hover:scale-105"
                       >
                         {interest} ✕
@@ -214,6 +226,7 @@ export default function OnboardingPage() {
                   {suggestedInterests.map((interest) => (
                     <button
                       key={interest}
+                      type="button"
                       onClick={() => handleAddInterest(interest)}
                       disabled={interests.includes(interest)}
                       className={`px-4 py-2 rounded-full text-sm font-black transition transform hover:scale-105 ${
@@ -228,6 +241,13 @@ export default function OnboardingPage() {
                 </div>
               </div>
 
+              {/* Success Message */}
+              {successMessage && (
+                <div className="p-4 bg-gradient-to-r from-neon-lime to-neon-cyan border-4 border-neon-lime rounded-xl text-dark-text font-bold text-center shadow-lg">
+                  ✅ {successMessage}
+                </div>
+              )}
+
               {/* Error Message */}
               {error && (
                 <div className="p-4 bg-gradient-to-r from-neon-red to-neon-orange border-4 border-neon-red rounded-xl text-white font-bold text-center shadow-lg">
@@ -241,7 +261,7 @@ export default function OnboardingPage() {
                 disabled={saving || !firstName || !age || interests.length === 0}
                 className="btn-90s w-full bg-gradient-to-r from-neon-cyan to-neon-lime text-dark-text font-black py-4 px-6 rounded-full transition shadow-neon-cyan hover:shadow-lg border-0 text-lg uppercase disabled:opacity-50"
               >
-                {saving ? '⏳ Saving...' : '🚀 Continue to Matches 🚀'}
+                {saving ? '⏳ Saving & redirecting...' : '🚀 Continue to Matches 🚀'}
               </button>
             </form>
 
