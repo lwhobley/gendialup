@@ -7,7 +7,7 @@ import { supabase } from '@/lib/supabase-client'
 
 interface Profile {
   first_name: string
-  age: number
+  age: string
   interests: string[]
   hometown: string
   current_city: string
@@ -35,7 +35,7 @@ export default function OnboardingPage() {
     religion: '',
     reason_for_joining: '',
     photo_urls: [],
-  } as any)
+  })
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [uploadingPhotos, setUploadingPhotos] = useState(false)
@@ -124,7 +124,7 @@ export default function OnboardingPage() {
         return
       }
 
-      if (!profile.age || parseInt(profile.age as any) < 28 || parseInt(profile.age as any) > 43) {
+      if (!profile.age || parseInt(profile.age) < 28 || parseInt(profile.age) > 43) {
         setError('Please enter an age between 28 and 43')
         setSaving(false)
         return
@@ -155,7 +155,7 @@ export default function OnboardingPage() {
         .upsert({
           id: user.id,
           first_name: profile.first_name.trim(),
-          age: parseInt(profile.age as any),
+          age: parseInt(profile.age),
           interests: profile.interests,
           hometown: profile.hometown,
           current_city: profile.current_city,
@@ -283,7 +283,7 @@ export default function OnboardingPage() {
                     setError('Please enter your name')
                     return
                   }
-                  if (!profile.age || parseInt(profile.age as any) < 28 || parseInt(profile.age as any) > 43) {
+                  if (!profile.age || parseInt(profile.age) < 28 || parseInt(profile.age) > 43) {
                     setError('Please enter an age between 28 and 43')
                     return
                   }
