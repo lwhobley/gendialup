@@ -32,7 +32,7 @@ export default function SignupForm() {
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error: signupError } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -40,14 +40,25 @@ export default function SignupForm() {
         },
       })
 
-      if (error) {
-        setError(error.message)
+      if (signupError) {
+        setError(signupError.message)
         setLoading(false)
         return
       }
 
+      if (!data.user) {
+        setError('Failed to create account')
+        setLoading(false)
+        return
+      }
+
+      // Add small delay to ensure auth state updates
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      // Navigate to onboarding
       router.push('/onboarding')
     } catch (err) {
+      console.error('Signup error:', err)
       setError('An error occurred. Please try again.')
       setLoading(false)
     }
@@ -134,7 +145,7 @@ export default function SignupForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-90s w-full bg-gradient-to-r from-neon-lime to-neon-cyan text-dark-text font-black py-4 px-6 rounded-full transition shadow-neon-cyan hover:shadow-lg border-0 text-lg uppercase"
+                className="btn-90s w-full bg-gradient-to-r from-neon-lime to-neon-cyan text-dark-text font-black py-4 px-6 rounded-full transition shadow-neon-cyan hover:shadow-lg border-0 text-lg uppercase disabled:opacity-50"
               >
                 {loading ? '⏳ Creating account...' : '🚀 Sign Up 🚀'}
               </button>

@@ -42,24 +42,48 @@ export default function OnboardingPage() {
         return
       }
 
-      const { error: err } = await supabase
-        .from('profiles')
-        .upsert({
-          id: user.id,
-          first_name: firstName,
-          age: parseInt(age),
-          interests,
-        })
-
-      if (err) {
-        setError(err.message)
+      if (!firstName.trim()) {
+        setError('Please enter your name')
         setSaving(false)
         return
       }
 
+      if (!age || parseInt(age) < 28 || parseInt(age) > 43) {
+        setError('Please enter an age between 28 and 43')
+        setSaving(false)
+        return
+      }
+
+      if (interests.length === 0) {
+        setError('Please select at least one interest')
+        setSaving(false)
+        return
+      }
+
+      const { error: err } = await supabase
+        .from('profiles')
+        .upsert({
+          id: user.id,
+          first_name: firstName.trim(),
+          age: parseInt(age),
+          interests: interests,
+        })
+
+      if (err) {
+        console.error('Database error:', err)
+        setError(err.message || 'Failed to save profile')
+        setSaving(false)
+        return
+      }
+
+      // Add delay to ensure database sync
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      // Navigate to matches
       router.push('/matches')
     } catch (err) {
-      setError('An error occurred')
+      console.error('Submit error:', err)
+      setError('An error occurred. Please try again.')
       setSaving(false)
     }
   }
@@ -85,6 +109,30 @@ export default function OnboardingPage() {
     '🧘 Yoga',
     '⚽ Sports',
     '🎬 Movies',
+    '🍷 Wine Tasting',
+    '🍕 Food Scene',
+    '🎭 Theater',
+    '📸 Photography',
+    '🌍 Local Events',
+    '🎮 Gaming',
+    '🚴 Cycling',
+    '🏖️ Beach Days',
+    '🌳 Nature',
+    '🎪 Comedy Shows',
+    '💡 Entrepreneurs',
+    '🧩 Puzzles',
+    '📖 Book Clubs',
+    '🍜 Cooking Classes',
+    '🎸 Live Music',
+    '💻 Tech',
+    '🌱 Gardening',
+    '🏔️ Rock Climbing',
+    '🧗 Adventure Sports',
+    '🎓 Learning New Things',
+    '🌙 Late Night Talks',
+    '☕ Cafes',
+    '🏃 Running',
+    '🎨 Craft Projects',
   ]
 
   return (
@@ -97,7 +145,7 @@ export default function OnboardingPage() {
       {/* Card */}
       <div className="relative z-10 w-full max-w-2xl">
         <div className="bg-gradient-to-br from-neon-orange to-neon-yellow p-1 rounded-3xl shadow-retro">
-          <div className="bg-white rounded-3xl p-8 glass-card">
+          <div className="bg-white rounded-3xl p-8 glass-card max-h-[90vh] overflow-y-auto">
             <h1 className="text-4xl font-black text-center mb-2 rainbow-text">
               YOUR PROFILE
             </h1>
@@ -143,12 +191,12 @@ export default function OnboardingPage() {
               {/* Interests */}
               <div>
                 <label className="block text-sm font-black text-neon-pink mb-4 uppercase">
-                  ✨ Your Interests
+                  ✨ Your Interests ({interests.length} selected)
                 </label>
 
                 {/* Selected interests */}
                 {interests.length > 0 && (
-                  <div className="mb-4 flex flex-wrap gap-3">
+                  <div className="mb-6 flex flex-wrap gap-3 p-4 bg-gradient-to-r from-neon-cyan/10 to-neon-lime/10 rounded-2xl border-2 border-neon-cyan">
                     {interests.map((interest) => (
                       <button
                         key={interest}
@@ -190,7 +238,7 @@ export default function OnboardingPage() {
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={saving || !firstName || !age}
+                disabled={saving || !firstName || !age || interests.length === 0}
                 className="btn-90s w-full bg-gradient-to-r from-neon-cyan to-neon-lime text-dark-text font-black py-4 px-6 rounded-full transition shadow-neon-cyan hover:shadow-lg border-0 text-lg uppercase disabled:opacity-50"
               >
                 {saving ? '⏳ Saving...' : '🚀 Continue to Matches 🚀'}
